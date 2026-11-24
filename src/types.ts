@@ -146,3 +146,5 @@ export interface WeekDoc {
   didnt: string
   change: string
 }
+
+export type DayRow = Partial<DayDoc> & { id: string }
