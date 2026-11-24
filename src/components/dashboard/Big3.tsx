@@ -2,31 +2,35 @@ import { useState } from 'react'
 import { Checkbox } from '../ui/Checkbox'
 import { Chip } from '../ui/Chip'
 import { CAT_COLORS, WORK_CATS } from '../../lib/defaults'
-import type { Big3Task, WorkCat } from '../../types'
+import type { Big3Task, Ticket, WorkCat } from '../../types'
 
 interface Props {
   mvd: boolean
   tasks: Big3Task[]
   mvdTasks: string[]
   mvdDone: boolean[]
+  /** open board tickets a task can be linked to */
+  tickets: Ticket[]
   onChange: (tasks: Big3Task[]) => void
   onToggleMvd: (index: number) => void
   /** Called after a task is ticked so linked tickets can follow. */
   onToggled?: (task: Big3Task, done: boolean) => void
 }
 
-export function Big3({ mvd, tasks, mvdTasks, mvdDone, onChange, onToggleMvd, onToggled }: Props) {
+export function Big3({ mvd, tasks, mvdTasks, mvdDone, tickets, onChange, onToggleMvd, onToggled }: Props) {
   const [title, setTitle] = useState('')
   const [cat, setCat] = useState<WorkCat>('college')
   const [est, setEst] = useState(30)
+  const [ticketId, setTicketId] = useState('')
 
   const doneCount = mvd ? mvdDone.filter(Boolean).length : tasks.filter((t) => t.done).length
 
   const add = () => {
     if (!title.trim() || tasks.length >= 3) return
-    const task: Big3Task = { id: crypto.randomUUID(), title: title.trim(), cat, estMin: Math.max(5, est || 30), done: false }
+    const task: Big3Task = { id: crypto.randomUUID(), title: title.trim(), cat, estMin: Math.max(5, est || 30), done: false, ticketId: ticketId || undefined }
     onChange([...tasks, task])
     setTitle('')
+    setTicketId('')
   }
 
   return (
@@ -64,6 +68,7 @@ export function Big3({ mvd, tasks, mvdTasks, mvdDone, onChange, onToggleMvd, onT
                   )}
                 </div>
                 <span className="font-mono text-[11px] text-muted">
+                  {t.ticketId ? `${tickets.find((x) => x.id === t.ticketId)?.key ?? 'ticket'} · ` : ''}
                   {Math.ceil(t.estMin / 25)} pomodoro{Math.ceil(t.estMin / 25) === 1 ? '' : 's'} · {t.estMin} min
                 </span>
               </div>
@@ -110,6 +115,28 @@ export function Big3({ mvd, tasks, mvdTasks, mvdDone, onChange, onToggleMvd, onT
               className="w-[72px] min-h-[44px] rounded-btn bg-surface-2 border-[1.5px] border-line-strong px-2 text-sm font-mono text-text"
             />
           </div>
+          {tickets.length > 0 && (
+            <select
+              value={ticketId}
+              aria-label="link a ticket"
+              onChange={(e) => {
+                const t = tickets.find((x) => x.id === e.target.value)
+                setTicketId(e.target.value)
+                if (t) {
+                  if (!title.trim()) setTitle(t.title)
+                  setCat(t.cat)
+                }
+              }}
+              className="min-h-[44px] rounded-btn bg-surface-2 border-[1.5px] border-line-strong px-3 text-sm text-text"
+            >
+              <option value="">link a board ticket (optional)</option>
+              {tickets.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.key} · {t.title}
+                </option>
+              ))}
+            </select>
+          )}
           <div className="flex flex-wrap items-center gap-1.5">
             {WORK_CATS.map((c) => (
               <Chip key={c} cat={c} selected={cat === c} onClick={() => setCat(c)} aria-pressed={cat === c}>

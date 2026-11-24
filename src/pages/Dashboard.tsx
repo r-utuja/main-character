@@ -1,5 +1,11 @@
 import { useState } from 'react'
-import { deleteField, documentId, where } from 'firebase/firestore'
+import { deleteField, doc, documentId, updateDoc, where } from 'firebase/firestore'
+import { SprintSnapshot } from '../components/dashboard/SprintSnapshot'
+import { useAuth } from '../hooks/useAuth'
+import { db } from '../lib/firebase'
+import { statusPatch } from '../lib/tickets'
+import { safeWrite } from '../lib/write'
+import { differenceInCalendarDays, parseISO } from 'date-fns'
 import { format } from 'date-fns'
 import { Big3 } from '../components/dashboard/Big3'
 import { LoadCheckCard } from '../components/dashboard/LoadCheckCard'
@@ -15,8 +21,8 @@ import { useDay } from '../hooks/useDay'
 import { useNow } from '../hooks/useNow'
 import { useUserDoc } from '../hooks/useUserDoc'
 import { dayEndsAt, dayKey, formatDuration, formatTime, hourOrder, isoWeekRange, lastKeys, shiftKey } from '../lib/dates'
-import { freeHoursLeft, habitStreak, hoursSpent, loadCheck, missedYesterday, planBlocks, type HabitDay } from '../lib/metrics'
-import type { Big3Task, DayDoc, Habit } from '../types'
+import { freeHoursLeft, habitStreak, hoursSpent, loadCheck, missedYesterday, planBlocks, sprintDay, sprintPoints, type HabitDay } from '../lib/metrics'
+import type { Big3Task, DayDoc, Habit, Sprint, Ticket } from '../types'
 
 const WEEK_CATS = ['college', 'placement', 'exploration', 'startup'] as const
 
@@ -36,6 +42,21 @@ export default function Dashboard() {
     histFrom + today,
   )
   const { items: allHabits } = useCollection<Omit<Habit, 'id'>>('habits')
+  const { items: tickets } = useCollection<Omit<Ticket, 'id'>>('tickets')
+  const { items: sprints } = useCollection<Omit<Sprint, 'id'>>('sprints')
+  const { user } = useAuth()
+
+  const activeSprint = sprints.find((s) => s.status === 'active')
+  const sprintTickets = activeSprint ? tickets.filter((t) => t.sprintId === activeSprint.id) : []
+  const sprintLen = activeSprint ? differenceInCalendarDays(parseISO(activeSprint.end), parseISO(activeSprint.start)) + 1 : settings.sprintLengthDays
+  const openTickets = tickets.filter((t) => t.status !== 'done')
+  /** Ticking a linked big-3 task moves its ticket too. */
+  const onBig3Toggled = (task: Big3Task, done: boolean) => {
+    const uid = user?.uid
+    if (!uid || !task.ticketId) return
+    const id = task.ticketId
+    void safeWrite(() => updateDoc(doc(db, 'users', uid, 'tickets', id), statusPatch(done ? 'done' : 'progress')))
+  }
 
   const byDate = new Map(history.map((d) => [d.id, d]))
   const getDay = (offset: number): HabitDay | undefined => byDate.get(shiftKey(today, -offset))
@@ -153,12 +174,22 @@ export default function Dashboard() {
                 tasks={day.big3}
                 mvdTasks={settings.mvdTasks}
                 mvdDone={day.mvdDone}
+                tickets={openTickets}
+                onToggled={onBig3Toggled}
                 onChange={setBig3}
                 onToggleMvd={toggleMvd}
               />
             </div>
 
             <div className="flex flex-col gap-[22px]">
+              <SprintSnapshot
+                sprint={activeSprint}
+                day={activeSprint ? sprintDay(activeSprint.start, today, sprintLen) : 1}
+                length={sprintLen}
+                points={sprintPoints(sprintTickets)}
+                tickets={sprintTickets}
+                wipLimit={settings.wipLimit}
+              />
               <WeekSnapshot rows={weekRows} />
               <LoadCheckCard mvd={day.mvd} load={load} realityFactor={settings.realityFactor} hasTasks={day.big3.length > 0} />
             </div>

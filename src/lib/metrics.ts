@@ -207,3 +207,111 @@ export function missedYesterday(habitId: string, getDay: (offset: number) => Hab
   // only a miss if there was a streak to save
   return habitStreak(habitId, (o) => getDay(o + 1)) > 0
 }
+
+// ---- sprints, tickets, epics ----
+import { differenceInCalendarDays, parseISO } from 'date-fns'
+import type { Priority, Sprint, Ticket } from '../types'
+
+type TicketLite = Pick<Ticket, 'status' | 'points'> & Partial<Pick<Ticket, 'due' | 'priority' | 'doneAt' | 'epicId'>>
+
+export interface SprintPoints {
+  committed: number
+  done: number
+  review: number
+  progress: number
+  todo: number
+}
+
+/** Story points per column for the tickets of one sprint. */
+export function sprintPoints(tickets: TicketLite[]): SprintPoints {
+  const out: SprintPoints = { committed: 0, done: 0, review: 0, progress: 0, todo: 0 }
+  for (const t of tickets) {
+    out.committed += t.points
+    out[t.status] += t.points
+  }
+  return out
+}
+
+/** Day number inside the sprint (1-based), clamped to 1..length. */
+export function sprintDay(startKey: string, todayKey: string, length: number): number {
+  const d = differenceInCalendarDays(parseISO(todayKey), parseISO(startKey)) + 1
+  return Math.min(Math.max(1, d), Math.max(1, length))
+}
+
+/** Mean completedPoints of the last 3 closed sprints, or null when there is no history. */
+export function velocity(sprints: Pick<Sprint, 'number' | 'status' | 'completedPoints'>[]): number | null {
+  const closed = sprints
+    .filter((s) => s.status === 'closed')
+    .sort((a, b) => b.number - a.number)
+    .slice(0, 3)
+  if (closed.length === 0) return null
+  return closed.reduce((sum, s) => sum + (s.completedPoints ?? 0), 0) / closed.length
+}
+
+/** How many points over the average velocity the sprint is, or null when it is within it (or there is no history). */
+export function velocityOverage(committed: number, avg: number | null): number | null {
+  if (avg === null) return null
+  const over = Math.round(committed - avg)
+  return over > 0 ? over : null
+}
+
+export interface Burndown {
+  committed: number
+  /** remaining points at the end of each sprint day up to today (index 0 = day 1) */
+  remaining: number[]
+  /** ideal line: committed at day 1 start falling to 0 on the last day, one value per day */
+  ideal: number[]
+}
+
+/** Remaining points per day: committed minus points of tickets done on or before that day. */
+export function burndown(
+  tickets: Pick<Ticket, 'points' | 'doneAt'>[],
+  startKey: string,
+  length: number,
+  todayKey: string,
+  keyOf: (ms: number) => string,
+): Burndown {
+  const committed = tickets.reduce((s, t) => s + t.points, 0)
+  const len = Math.max(1, length)
+  const today = sprintDay(startKey, todayKey, len)
+  const remaining: number[] = []
+  for (let i = 0; i < today; i++) {
+    const dayKeyStr = new Date(parseISO(startKey).getTime())
+    dayKeyStr.setDate(dayKeyStr.getDate() + i)
+    const key = `${dayKeyStr.getFullYear()}-${String(dayKeyStr.getMonth() + 1).padStart(2, '0')}-${String(dayKeyStr.getDate()).padStart(2, '0')}`
+    const doneBy = tickets.filter((t) => t.doneAt !== undefined && keyOf(t.doneAt) <= key).reduce((s, t) => s + t.points, 0)
+    remaining.push(committed - doneBy)
+  }
+  const ideal = Array.from({ length: len }, (_, i) => (len === 1 ? 0 : committed * (1 - i / (len - 1))))
+  return { committed, remaining, ideal }
+}
+
+/** Done tickets / all tickets in an epic (0 when the epic is empty). */
+export function epicProgress(tickets: Pick<Ticket, 'status'>[]): number {
+  if (tickets.length === 0) return 0
+  return tickets.filter((t) => t.status === 'done').length / tickets.length
+}
+
+const PRIORITY_RANK: Record<Priority, number> = { high: 0, med: 1, low: 2 }
+export function priorityRank(p: Priority): number {
+  return PRIORITY_RANK[p]
+}
+
+/** Urgent = due within 3 days (including already past). */
+export function isUrgent(due: string | undefined, todayKey: string): boolean {
+  if (!due) return false
+  return differenceInCalendarDays(parseISO(due), parseISO(todayKey)) <= 3
+}
+
+/** Important = priority high or medium. */
+export function isImportant(priority: Priority): boolean {
+  return priority !== 'low'
+}
+
+export type Quadrant = 'do' | 'plan' | 'squeeze' | 'later'
+
+export function quadrantOf(t: Pick<Ticket, 'due' | 'priority'>, todayKey: string): Quadrant {
+  const u = isUrgent(t.due, todayKey)
+  const i = isImportant(t.priority)
+  return u && i ? 'do' : i ? 'plan' : u ? 'squeeze' : 'later'
+}

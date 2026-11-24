@@ -149,3 +149,78 @@ describe('missedYesterday', () => {
     expect(missedYesterday('h', () => undefined)).toBe(false)
   })
 })
+
+import { burndown, epicProgress, isUrgent, quadrantOf, sprintDay, sprintPoints, velocity, velocityOverage } from './metrics'
+
+describe('sprints', () => {
+  it('sums points per column', () => {
+    const pts = sprintPoints([
+      { status: 'done', points: 3 },
+      { status: 'progress', points: 5 },
+      { status: 'review', points: 2 },
+      { status: 'todo', points: 1 },
+    ])
+    expect(pts).toEqual({ committed: 11, done: 3, review: 2, progress: 5, todo: 1 })
+    expect(sprintPoints([]).committed).toBe(0)
+  })
+  it('sprintDay is clamped', () => {
+    expect(sprintDay('2026-11-23', '2026-11-24', 14)).toBe(2)
+    expect(sprintDay('2026-11-23', '2026-12-30', 14)).toBe(14)
+    expect(sprintDay('2026-11-23', '2026-11-01', 14)).toBe(1)
+  })
+  it('velocity averages the last 3 closed sprints', () => {
+    const s = (number: number, completedPoints: number, status: 'closed' | 'active' = 'closed') => ({ number, completedPoints, status })
+    expect(velocity([])).toBeNull()
+    expect(velocity([s(1, 20), s(2, 30), s(3, 40), s(4, 50), s(5, 99, 'active')])).toBe(40)
+  })
+  it('overage only above the average', () => {
+    expect(velocityOverage(35, 31)).toBe(4)
+    expect(velocityOverage(30, 31)).toBeNull()
+    expect(velocityOverage(35, null)).toBeNull()
+  })
+})
+
+describe('burndown', () => {
+  const keyOf = (ms: number) => {
+    const d = new Date(ms)
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+  }
+  const tickets = [
+    { points: 5, doneAt: new Date(2026, 10, 24, 10).getTime() },
+    { points: 3, doneAt: undefined },
+  ]
+  it('remaining drops on the day a ticket is done', () => {
+    const b = burndown(tickets, '2026-11-23', 14, '2026-11-24', keyOf)
+    expect(b.committed).toBe(8)
+    expect(b.remaining).toEqual([8, 3])
+  })
+  it('ideal line goes from committed to zero', () => {
+    const b = burndown(tickets, '2026-11-23', 14, '2026-11-24', keyOf)
+    expect(b.ideal).toHaveLength(14)
+    expect(b.ideal[0]).toBe(8)
+    expect(b.ideal[13]).toBe(0)
+  })
+  it('handles an empty sprint and a one-day sprint', () => {
+    expect(burndown([], '2026-11-23', 1, '2026-11-23', keyOf)).toEqual({ committed: 0, remaining: [0], ideal: [0] })
+  })
+})
+
+describe('epics and eisenhower', () => {
+  it('epic progress handles empty epics', () => {
+    expect(epicProgress([])).toBe(0)
+    expect(epicProgress([{ status: 'done' }, { status: 'todo' }])).toBe(0.5)
+  })
+  it('urgent means due within 3 days', () => {
+    expect(isUrgent('2026-11-27', '2026-11-24')).toBe(true)
+    expect(isUrgent('2026-11-28', '2026-11-24')).toBe(false)
+    expect(isUrgent(undefined, '2026-11-24')).toBe(false)
+  })
+  it('quadrants', () => {
+    const t = '2026-11-24'
+    expect(quadrantOf({ due: '2026-11-25', priority: 'high' }, t)).toBe(
+'do')
+    expect(quadrantOf({ due: '2026-12-25', priority: 'med' }, t)).toBe('plan')
+    expect(quadrantOf({ due: '2026-11-25', priority: 'low' }, t)).toBe('squeeze')
+    expect(quadrantOf({ priority: 'low' }, t)).toBe('later')
+  })
+})
