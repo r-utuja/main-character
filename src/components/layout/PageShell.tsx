@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom'
+import { QuickCapture } from './QuickCapture'
 import { Sidebar } from './Sidebar'
 
 /** Sidebar + main content. Below 900px the sidebar stacks on top. */
@@ -11,6 +12,7 @@ export function PageShell() {
           <Outlet />
         </div>
       </main>
+      <QuickCapture />
     </div>
   )
 }
