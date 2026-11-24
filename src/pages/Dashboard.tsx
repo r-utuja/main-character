@@ -22,7 +22,8 @@ import { useNow } from '../hooks/useNow'
 import { useUserDoc } from '../hooks/useUserDoc'
 import { dayEndsAt, dayKey, formatDuration, formatTime, hourOrder, isoWeekRange, lastKeys, shiftKey } from '../lib/dates'
 import { freeHoursLeft, habitStreak, hoursSpent, loadCheck, missedYesterday, planBlocks, sprintDay, sprintPoints, type HabitDay } from '../lib/metrics'
-import type { Big3Task, DayDoc, Habit, Sprint, Ticket } from '../types'
+import { SpentToday } from '../components/dashboard/SpentToday'
+import type { Big3Task, DayDoc, Expense, Habit, Sprint, Ticket } from '../types'
 
 const WEEK_CATS = ['college', 'placement', 'exploration', 'startup'] as const
 
@@ -45,6 +46,7 @@ export default function Dashboard() {
   const { items: tickets } = useCollection<Omit<Ticket, 'id'>>('tickets')
   const { items: sprints } = useCollection<Omit<Sprint, 'id'>>('sprints')
   const { user } = useAuth()
+  const { items: todayExpenses } = useCollection<Omit<Expense, 'id'>>('expenses', [where('date', '==', today)], today)
 
   const activeSprint = sprints.find((s) => s.status === 'active')
   const sprintTickets = activeSprint ? tickets.filter((t) => t.sprintId === activeSprint.id) : []
@@ -197,6 +199,7 @@ export default function Dashboard() {
             <div className="flex flex-col gap-[22px]">
               <UpNext blocks={upcoming} />
               <Rituals mvd={day.mvd} rituals={rituals} onToggle={toggleHabit} />
+              <SpentToday total={todayExpenses.reduce((s, e) => s + e.amount, 0)} count={todayExpenses.length} />
             </div>
           </div>
         </>

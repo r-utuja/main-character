@@ -48,3 +48,13 @@ export const STARTER_HABITS: Omit<Habit, 'id'>[] = [
   { name: 'language', icon: 'language', color: '#86CBFF', tiny: '5 words', order: 3, archived: false },
   { name: 'read', icon: 'read', color: '#FFA36C', tiny: '1 page', order: 4, archived: false },
 ]
+
+export const MONEY_COLORS: Record<string, string> = {
+  'food & cafés': '#FFA36C',
+  transport: '#86CBFF',
+  subscriptions: '#B8A6FF',
+  shopping: '#FF8FB8',
+  outings: '#CDF56A',
+  'study stuff': '#D9D3E2',
+  other: '#8F87A0',
+}

@@ -224,3 +224,39 @@ describe('epics and eisenhower', () => {
     expect(quadrantOf({ priority: 'low' }, t)).toBe('later')
   })
 })
+
+import { budgetVerdict, categoryTotals, daysLeftInMonth, formatINR, monthGone, safeToSpend, spendNudge, sumAmounts } from './metrics'
+
+describe('money', () => {
+  it('formats INR with Indian grouping', () => {
+    expect(formatINR(7450)).toBe('₹7,450')
+    expect(formatINR(123456)).toBe('₹1,23,456')
+    expect(formatINR(0)).toBe('₹0')
+    expect(formatINR(Number.NaN)).toBe('₹0')
+  })
+  it('sums amounts', () => {
+    expect(sumAmounts([])).toBe(0)
+    expect(sumAmounts([{ amount: 100 }, { amount: 80 }])).toBe(180)
+  })
+  it('counts days left including today', () => {
+    expect(daysLeftInMonth('2026-11-24')).toBe(7)
+    expect(daysLeftInMonth('2026-11-30')).toBe(1)
+  })
+  it('safe to spend divides what is left by days left', () => {
+    expect(safeToSpend(10000, 7450, 7)).toBe(364)
+    expect(safeToSpend(10000, 12000, 7)).toBe(0)
+    expect(safeToSpend(10000, 0, 0)).toBe(0)
+  })
+  it('verdict compares budget used to month gone', () => {
+    expect(budgetVerdict(7450, 10000, monthGone('2026-11-24'))).toBe('on track')
+    expect(budgetVerdict(9000, 10000, 0.5)).toBe('running hot')
+    expect(budgetVerdict(100, 0, 0.5)).toBe('on track')
+  })
+  it('nudges when one category passes 30% of the month', () => {
+    const totals = categoryTotals([{ cat: 'food', amount: 2310 }, { cat: 'shopping', amount: 1450 }, { cat: 'transport', amount: 3690 }])
+    expect(spendNudge(totals)?.cat).toBe('transport')
+    expect(spendNudge({ a: 30, b: 30, c: 40 })?.cat).toBe('c')
+    expect(spendNudge({ a: 30, b: 30, c: 30, d: 10 })).toBeNull()
+    expect(spendNudge({})).toBeNull()
+  })
+})

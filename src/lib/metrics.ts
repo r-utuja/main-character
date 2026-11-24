@@ -315,3 +315,59 @@ export function quadrantOf(t: Pick<Ticket, 'due' | 'priority'>, todayKey: string
   const i = isImportant(t.priority)
   return u && i ? 'do' : i ? 'plan' : u ? 'squeeze' : 'later'
 }
+
+// ---- money ----
+import { getDaysInMonth } from 'date-fns'
+
+/** INR with Indian digit grouping: 7450 -> ₹7,450, 123456 -> ₹1,23,456. */
+export function formatINR(n: number): string {
+  const v = Math.round(Number.isFinite(n) ? n : 0)
+  return (v < 0 ? '-₹' : '₹') + Math.abs(v).toLocaleString('en-IN')
+}
+
+export function sumAmounts(list: { amount: number }[]): number {
+  return list.reduce((s, e) => s + e.amount, 0)
+}
+
+/** Days left in the month including today. */
+export function daysLeftInMonth(todayKey: string): number {
+  const d = parseISO(todayKey)
+  return getDaysInMonth(d) - d.getDate() + 1
+}
+
+/** Share of the month already gone (0 to 1), counting today as gone. */
+export function monthGone(todayKey: string): number {
+  const d = parseISO(todayKey)
+  return d.getDate() / getDaysInMonth(d)
+}
+
+/** Safe to spend per day = (monthly budget - spent this month) / days left including today. Never negative. */
+export function safeToSpend(monthlyBudget: number, spentThisMonth: number, daysLeft: number): number {
+  if (daysLeft <= 0) return 0
+  return Math.max(0, Math.round((monthlyBudget - spentThisMonth) / daysLeft))
+}
+
+/** On track while the share of budget used is no ahead of the share of the month gone. */
+export function budgetVerdict(spent: number, monthlyBudget: number, gone: number): 'on track' | 'running hot' {
+  if (monthlyBudget <= 0) return 'on track'
+  return spent / monthlyBudget <= gone ? 'on track' : 'running hot'
+}
+
+/** Totals per category. */
+export function categoryTotals(list: { cat: string; amount: number }[]): Record<string, number> {
+  const out: Record<string, number> = {}
+  for (const e of list) out[e.cat] = (out[e.cat] ?? 0) + e.amount
+  return out
+}
+
+/** The category taking over 30% of the month's spending, if any (the biggest one). */
+export function spendNudge(totals: Record<string, number>): { cat: string; pct: number } | null {
+  const total = Object.values(totals).reduce((s, n) => s + n, 0)
+  if (total <= 0) return null
+  let best: { cat: string; pct: number } | null = null
+  for (const [cat, amount] of Object.entries(totals)) {
+    const pct = (amount / total) * 100
+    if (pct > 30 && (!best || pct > best.pct)) best = { cat, pct }
+  }
+  return best
+}
