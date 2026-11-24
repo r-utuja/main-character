@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pomodoro (desktop)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0B0A0E}
+a{color:#CDF56A}a:hover{color:#E4FF9E}
+button{font-family:inherit;cursor:pointer}
+input::placeholder{color:#8F87A0}
+.mc-dots{background-color:#121016;background-image:radial-gradient(rgba(243,239,231,0.06) 1px, transparent 1.3px);background-size:18px 18px}
+.mc-nav{display:flex;align-items:center;gap:12px;min-height:44px;padding:0 12px;border-radius:12px;color:#ABA3B8;text-decoration:none;font-size:14px;font-weight:600}
+.mc-nav:hover{background:#1D1A23;color:#F3EFE7}
+.mc-nav-on,.mc-nav-on:hover{background:#CDF56A;color:#121016}
+</style>
+</helmet>
+<div class="mc-dots" style="min-height: 1100px; display: flex; flex-wrap: wrap; font-family: Inter, system-ui, sans-serif; color: #F3EFE7">
+
+<aside style="flex: 1 1 232px; box-sizing: border-box; padding: 24px 16px; background: #100E14; border-right: 1.5px solid #2E2A36; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; align-items: baseline; gap: 8px; padding: 0 12px">
+<span style="font-family: 'Bricolage Grotesque', 'Arial Narrow', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.04em; color: #CDF56A">mc.</span>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #ABA3B8">main character</span>
+</div>
+<nav aria-label="Main" style="display: flex; flex-direction: column; gap: 4px">
+<a class="mc-nav" href="Desk-Today.dc.html"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>dashboard</a>
+<a class="mc-nav mc-nav-on" href="Desk-Pomodoro.dc.html" aria-current="page"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 10v3.5l2.5 1.5M9.5 2.5h5M12 2.5V6"/></svg>pomodoro</a>
+<a class="mc-nav" href="Desk-Board.dc.html"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="10" rx="1.5"/><rect x="17" y="4" width="4" height="13" rx="1.5"/></svg>board</a>
+<a class="mc-nav" href="Desk-Track.dc.html"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>track</a>
+<a class="mc-nav" href="Desk-Money.dc.html"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M15.5 14.5h2.5"/></svg>money</a>
+<a class="mc-nav" href="#"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 20V11M11 20V5M17 20v-7M3 20h18"/></svg>review</a>
+<a class="mc-nav" href="#"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>settings</a>
+</nav>
+<div style="margin-top: auto; display: flex; align-items: center; gap: 10px; padding: 0 4px">
+<span style="width: 36px; height: 36px; border-radius: 11px; background: #FFA36C; color: #121016; display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 14px; transform: rotate(-5deg)">RZ</span>
+<span style="font-size: 14px; font-weight: 600">rutuja</span>
+</div>
+</aside>
+
+<main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 24px">
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; color: #ABA3B8">TUE 24 NOV 2026 · 10:59</span>
+<button type="button" style="min-height: 44px; display: flex; align-items: center; gap: 10px; padding: 0 14px; border-radius: 14px; background: #1D1A23; border: 1.5px solid #3B3546; color: #F3EFE7; font-size: 13px; font-weight: 600"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px">25 / 5 / 15</span><span style="color: #ABA3B8">long break every 4</span><span style="color: #CDF56A; font-weight: 700">edit</span></button>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Arial Narrow', sans-serif; font-size: 60px; line-height: 0.92; font-weight: 800; letter-spacing: -0.04em">the focus <span style="color: #CDF56A">room.</span></h1>
+<span style="font-size: 15px; color: #ABA3B8">one task. one timer. phone face down.</span>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+
+<section style="flex: 3 1 520px; min-width: 0; position: relative; background: #1D1A23; border: 2px solid #CDF56A; border-radius: 28px; padding: 34px 32px 30px; margin-top: 10px; box-shadow: 8px 8px 0 #CDF56A; display: flex; flex-direction: column; gap: 22px">
+<span style="{{stickerStyle}}">{{sticker}}</span>
+
+<div role="group" aria-label="Timer mode" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; max-width: 460px">
+<sc-for list="{{modes}}" as="md" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{md.pressed}}" onClick="{{md.pick}}" style="{{md.style}}">{{md.label}}</button>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+<span role="timer" style="font-family: 'Bricolage Grotesque', 'Arial Narrow', sans-serif; font-size: 200px; line-height: 0.82; font-weight: 800; letter-spacing: -0.06em; font-variant-numeric: tabular-nums">{{clock}}</span>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 10px; padding-bottom: 10px">
+<div style="display: flex; gap: 8px" role="img" aria-label="{{sessLabel}}">
+<sc-for list="{{sessions}}" as="s" hint-placeholder-count="4"><span style="{{s.style}}"></span></sc-for>
+</div>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #ABA3B8">{{sessText}}</span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="height: 14px; border-radius: 7px; background: #2A2631; overflow: hidden"><div style="{{bar}}"></div></div>
+<span style="font-size: 14px; color: #D9D3E2">{{status}}</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; color: #ABA3B8">WORKING ON</span>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 10px">
+<sc-for list="{{tasks}}" as="t" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="{{t.style}}">
+<span style="font-size: 14.5px; font-weight: 700">{{t.title}}</span>
+<span style="{{t.chip}}">{{t.catName}}</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; color: #ABA3B8; margin-right: 4px">LOGS AS</span>
+<sc-for list="{{cats}}" as="ct" hint-placeholder-count="5">
+<button type="button" aria-pressed="{{ct.pressed}}" onClick="{{ct.pick}}" style="{{ct.style}}">{{ct.name}}</button>
+</sc-for>
+</div>
+
+<div style="display: flex; gap: 12px">
+<button type="button" onClick="{{toggleRun}}" style="flex: 1; max-width: 360px; min-height: 60px; border-radius: 18px; background: #CDF56A; border: none; color: #121016; font-weight: 800; font-size: 18px; box-shadow: 5px 5px 0 #B8A6FF">{{runLabel}}</button>
+<button type="button" onClick="{{reset}}" aria-label="Reset timer" style="width: 60px; height: 60px; border-radius: 18px; background: transparent; border: 2px solid #4A4356; color: #F3EFE7; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4.5h4.5"/></svg></button>
+<button type="button" onClick="{{skip}}" aria-label="Skip to next" style="width: 60px; height: 60px; border-radius: 18px; background: transparent; border: 2px solid #4A4356; color: #F3EFE7; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 5l9 7-9 7zM18 5v14"/></svg></button>
+</div>
+</section>
+
+<div style="flex: 2 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+
+<section style="background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #ABA3B8">TODAY</span>
+<div style="display: flex; align-items: baseline; gap: 10px">
+<span style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 52px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: #CDF56A">{{doneCount}}</span>
+<span style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 20px; font-weight: 700; color: #ABA3B8">pomodoros · {{doneTime}}</span>
+</div>
+<div style="display: flex; gap: 5px" role="img" aria-label="{{goalLabel}}">
+<sc-for list="{{goal}}" as="g" hint-placeholder-count="8"><span style="{{g.style}}"></span></sc-for>
+</div>
+<span style="font-size: 12.5px; color: #ABA3B8">daily goal: 8. halfway gets you the streak.</span>
+</section>
+
+<section style="background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0 0 8px; font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.02em">session log</h2>
+<sc-for list="{{log}}" as="l" hint-placeholder-count="3">
+<div style="display: grid; grid-template-columns: 96px 10px minmax(0, 1fr); gap: 10px; align-items: center; min-height: 42px; border-top: 1px solid #2E2A36">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px; color: #ABA3B8">{{l.time}}</span>
+<span style="{{l.dot}}"></span>
+<span style="font-size: 13.5px; font-weight: 600">{{l.task}}</span>
+</div>
+</sc-for>
+<span style="font-size: 12px; color: #ABA3B8; margin-top: 6px">every session lands in your hour tracker automatically.</span>
+</section>
+
+<section style="background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+<label for="park" style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 20px; font-weight: 800; letter-spacing: -0.01em">brain popped a thought? park it.</label>
+<div style="display: flex; gap: 8px">
+<input id="park" type="text" placeholder="deal with it after this session…" value="{{park}}" onChange="{{setPark}}" style="flex: 1; min-width: 0; min-height: 46px; box-sizing: border-box; background: #121016; border: 1.5px solid #4A4356; border-radius: 12px; padding: 0 12px; color: #F3EFE7; font-family: Inter, system-ui, sans-serif; font-size: 14px">
+<button type="button" onClick="{{addPark}}" aria-label="Park thought" style="width: 46px; height: 46px; flex: none; border-radius: 12px; background: #B8A6FF; border: none; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#121016" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+</div>
+<div style="display: flex; gap: 6px; flex-wrap: wrap">
+<sc-for list="{{parked}}" as="p" hint-placeholder-count="2"><span style="font-size: 12.5px; font-weight: 500; background: #2A2631; border: 1px dashed #6E6580; border-radius: 999px; padding: 6px 11px">{{p}}</span></sc-for>
+</div>
+</section>
+
+</div>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mode: 'focus', remaining: 1500, running: false, session: 2, task: 'cn', cat: 'college', park: '',
+      parked: ['fix navbar bug', 'email prof about lab slot'],
+      log: [
+        { time: '00:05 – 00:30', task: 'API docs draft', cat: 'startup' },
+        { time: '00:35 – 01:00', task: 'rust book ch. 3', cat: 'explore' },
+        { time: '10:30 – 10:55', task: 'CN unit 3 revision', cat: 'college' }
+      ]
+    };
+  }
+  componentDidMount() {
+    var self = this;
+    this.tick = setInterval(function () {
+      if (!self.state.running) return;
+      var r = self.state.remaining - 1;
+      if (r <= 0) { self.advance(true); } else { self.setState({ remaining: r }); }
+    }, 1000);
+  }
+  componentWillUnmount() { clearInterval(this.tick); }
+  dur(m) { return m === 'focus' ? 1500 : (m === 'short' ? 300 : 900); }
+  taskList() {
+    return [
+      { id: 'cn', title: 'CN unit 3 revision', cat: 'college' },
+      { id: 'dp', title: '2 DP problems', cat: 'placement' },
+      { id: 'onb', title: 'onboarding fix', cat: 'startup' }
+    ];
+  }
+  advance(finished) {
+    var s = this.state;
+    if (s.mode === 'focus') {
+      var next = s.session >= 4 ? 'long' : 'short';
+      var upd = { mode: next, remaining: this.dur(next), running: false };
+      if (finished) {
+        var d = new Date();
+        var p = function (n) { return (n < 10 ? '0' : '') + n; };
+        var end = p(d.getHours()) + ':' + p(d.getMinutes());
+        var t = this.taskList().filter(function (x) { return x.id === s.task; })[0];
+        upd.log = s.log.concat([{ time: '… – ' + end, task: t.title, cat: s.cat }]);
+      }
+      this.setState(upd);
+    } else {
+      var ns = s.mode === 'long' ? 1 : s.session + 1;
+      this.setState({ mode: 'focus', remaining: 1500, running: false, session: ns });
+    }
+  }
+  renderVals() {
+    var self = this;
+    var st = this.state;
+    var C = { college: '#B8A6FF', placement: '#86CBFF', explore: '#FF8FB8', startup: '#FFA36C', other: '#8F87A0' };
+    var N = { college: 'college', placement: 'placement', explore: 'exploration', startup: 'startup', other: 'other' };
+    var mm = Math.floor(st.remaining / 60), ss = st.remaining % 60;
+    var clock = (mm < 10 ? '0' : '') + mm + ':' + (ss < 10 ? '0' : '') + ss;
+    var pct = Math.round((1 - st.remaining / this.dur(st.mode)) * 100);
+    var modes = [['focus', 'focus · 25'], ['short', 'break · 5'], ['long', 'long break · 15']].map(function (m) {
+      var on = st.mode === m[0];
+      return {
+        label: m[1], pressed: on ? 'true' : 'false',
+        pick: function () { self.setState({ mode: m[0], remaining: self.dur(m[0]), running: false }); },
+        style: 'min-height:44px;border-radius:12px;font-size:13.5px;font-weight:700;' + (on ? 'background:#F3EFE7;color:#121016;border:none' : 'background:transparent;color:#ABA3B8;border:1.5px solid #3B3546')
+      };
+    });
+    var sessions = [1, 2, 3, 4].map(function (n) {
+      var c = n < st.session ? '#CDF56A' : (n === st.session ? '#B8A6FF' : '#3B3546');
+      return { style: 'width:16px;height:16px;border-radius:4px;transform:rotate(45deg);background:' + c };
+    });
+    var tasks = this.taskList().map(function (t) {
+      var on = st.task === t.id;
+      return {
+        title: t.title, catName: N[t.cat], pressed: on ? 'true' : 'false',
+        pick: function () { self.setState({ task: t.id, cat: t.cat }); },
+        style: 'min-height:72px;text-align:left;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:8px;padding:12px 14px;border-radius:14px;color:#F3EFE7;' + (on ? 'background:#2A2631;border:2px solid #CDF56A' : 'background:#17151C;border:1.5px solid #3B3546'),
+        chip: 'font-size:11px;font-weight:700;color:#121016;background:' + C[t.cat] + ';padding:3px 8px;border-radius:999px'
+      };
+    });
+    var cats = ['college', 'placement', 'explore', 'startup', 'other'].map(function (k) {
+      var on = st.cat === k;
+      return {
+        name: N[k], pressed: on ? 'true' : 'false',
+        pick: function () { self.setState({ cat: k }); },
+        style: 'min-height:36px;padding:0 13px;border-radius:999px;font-size:12.5px;font-weight:700;' + (on ? 'background:' + C[k] + ';color:#121016;border:1.5px solid ' + C[k] : 'background:transparent;color:#D9D3E2;border:1.5px solid #4A4356')
+      };
+    });
+    var status;
+    if (st.mode === 'focus') status = st.running ? 'locked in. ' + mm + ' min to go, you’ve got this.' : (st.remaining < 1500 ? 'paused. pick it back up when you’re ready.' : 'ready when you are. hit start and don’t look back.');
+    else status = st.mode === 'short' ? 'short break. stand up, water, stretch. no scrolling.' : 'long break. you earned this one.';
+    var n = st.log.length;
+    var mins = n * 25;
+    var goal = [];
+    for (var i = 0; i < 8; i++) goal.push({ style: 'flex:1;height:12px;border-radius:3px;background:' + (i < n ? '#CDF56A' : '#2A2631') });
+    return {
+      clock: clock, modes: modes, sessions: sessions, tasks: tasks, cats: cats, status: status,
+      sessLabel: 'Session ' + st.session + ' of 4',
+      sessText: 'session ' + st.session + ' of 4',
+      sticker: st.running ? (st.mode === 'focus' ? 'LOCKED IN' : 'ON BREAK') : 'READY',
+      stickerStyle: 'position:absolute;top:-14px;left:24px;font-family:JetBrains Mono,monospace;font-size:12px;font-weight:600;letter-spacing:0.1em;padding:7px 12px;border-radius:8px;transform:rotate(-3deg);' + (st.running ? 'background:#CDF56A;color:#121016' : 'background:#121016;color:#CDF56A;border:1.5px solid #CDF56A'),
+      bar: 'width:' + pct + '%;height:100%;border-radius:7px;background:' + (st.mode === 'focus' ? '#CDF56A' : '#86CBFF'),
+      runLabel: st.running ? 'pause' : (st.remaining < this.dur(st.mode) ? 'resume' : 'start'),
+      toggleRun: function () { self.setState({ running: !self.state.running }); },
+      reset: function () { self.setState({ remaining: self.dur(self.state.mode), running: false }); },
+      skip: function () { self.advance(false); },
+      doneCount: n, doneTime: Math.floor(mins / 60) + 'h ' + (mins % 60 < 10 ? '0' : '') + (mins % 60) + 'm',
+      goal: goal, goalLabel: n + ' of 8 pomodoros done today',
+      log: st.log.map(function (l) { return { time: l.time, task: l.task, dot: 'width:10px;height:10px;border-radius:50%;background:' + C[l.cat] }; }),
+      park: st.park, parked: st.parked,
+      setPark: function (e) { self.setState({ park: e.target.value }); },
+      addPark: function () { var v = (self.state.park || '').trim(); if (!v) return; self.setState({ parked: self.state.parked.concat([v]), park: '' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

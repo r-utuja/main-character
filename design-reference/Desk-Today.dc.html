@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dashboard (desktop)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0B0A0E}
+a{color:#CDF56A}a:hover{color:#E4FF9E}
+button{font-family:inherit;cursor:pointer}
+.mc-dots{background-color:#121016;background-image:radial-gradient(rgba(243,239,231,0.06) 1px, transparent 1.3px);background-size:18px 18px}
+.mc-nav{display:flex;align-items:center;gap:12px;min-height:44px;padding:0 12px;border-radius:12px;color:#ABA3B8;text-decoration:none;font-size:14px;font-weight:600}
+.mc-nav:hover{background:#1D1A23;color:#F3EFE7}
+.mc-nav-on,.mc-nav-on:hover{background:#CDF56A;color:#121016}
+.mc-leak{background-color:#1D1A23;background-image:repeating-linear-gradient(135deg, rgba(255,163,108,0.35) 0 2px, transparent 2px 7px)}
+</style>
+</helmet>
+<div class="mc-dots" style="min-height: 1180px; display: flex; flex-wrap: wrap; font-family: Inter, system-ui, sans-serif; color: #F3EFE7">
+
+<aside style="flex: 1 1 232px; box-sizing: border-box; padding: 24px 16px; background: #100E14; border-right: 1.5px solid #2E2A36; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; align-items: baseline; gap: 8px; padding: 0 12px">
+<span style="font-family: 'Bricolage Grotesque', 'Arial Narrow', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.04em; color: #CDF56A">mc.</span>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #ABA3B8">main character</span>
+</div>
+<nav aria-label="Main" style="display: flex; flex-direction: column; gap: 4px">
+<a class="mc-nav mc-nav-on" href="Desk-Today.dc.html" aria-current="page"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>dashboard</a>
+<a class="mc-nav" href="Desk-Pomodoro.dc.html"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 10v3.5l2.5 1.5M9.5 2.5h5M12 2.5V6"/></svg>pomodoro</a>
+<a class="mc-nav" href="Desk-Board.dc.html"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="10" rx="1.5"/><rect x="17" y="4" width="4" height="13" rx="1.5"/></svg>board</a>
+<a class="mc-nav" href="Desk-Track.dc.html"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>track</a>
+<a class="mc-nav" href="Desk-Money.dc.html"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M15.5 14.5h2.5"/></svg>money</a>
+<a class="mc-nav" href="#"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 20V11M11 20V5M17 20v-7M3 20h18"/></svg>review</a>
+<a class="mc-nav" href="#"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>settings</a>
+</nav>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 12px">
+<div style="border: 1.5px dashed #3B3546; border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.08em; color: #ABA3B8">YOUR DAY</span>
+<span style="font-size: 13px; font-weight: 600">00:00 → 24:00 · 24h clock</span>
+<a href="#" style="font-size: 12px; font-weight: 600">change day start</a>
+</div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 0 4px">
+<span style="width: 36px; height: 36px; border-radius: 11px; background: #FFA36C; color: #121016; display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 14px; transform: rotate(-5deg)">RZ</span>
+<span style="font-size: 14px; font-weight: 600">rutuja</span>
+</div>
+</div>
+</aside>
+
+<main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 24px">
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<div style="display: flex; align-items: baseline; gap: 14px">
+<span style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 34px; font-weight: 800; letter-spacing: -0.03em">10:59</span>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; color: #ABA3B8">TUE 24 NOV 2026 · WK 48</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+<div role="group" aria-label="Day mode" style="display: flex; background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 14px; padding: 4px">
+<button type="button" aria-pressed="{{fullStr}}" onClick="{{setFull}}" style="{{fullBtn}}">full day</button>
+<button type="button" aria-pressed="{{mvdStr}}" onClick="{{setMvd}}" style="{{mvdBtn}}">minimum viable day</button>
+</div>
+<button type="button" style="min-height: 46px; display: flex; align-items: center; gap: 10px; padding: 0 14px; border-radius: 14px; background: #CDF56A; border: none; color: #121016; font-weight: 800; font-size: 14px; box-shadow: 4px 4px 0 #B8A6FF"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#121016" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>capture<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; background: rgba(18,16,22,0.12); border-radius: 6px; padding: 3px 6px">ctrl K</span></button>
+</div>
+</div>
+
+<sc-if value="{{mvd}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; align-items: center; gap: 14px; background: #B8A6FF; color: #121016; border-radius: 16px; padding: 14px 18px">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; background: #121016; color: #B8A6FF; padding: 5px 9px; border-radius: 7px; transform: rotate(-3deg)">MVD ON</span>
+<span style="font-size: 15px; font-weight: 600">rough day? 3 tiny wins, then rest. streaks are protected and nothing turns red today.</span>
+</div>
+</sc-if>
+
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px">
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Arial Narrow', sans-serif; font-size: 60px; line-height: 0.92; font-weight: 800; letter-spacing: -0.04em">main character hours, <span style="color: #B8A6FF; position: relative; display: inline-block">rutuja.<svg aria-hidden="true" width="190" height="14" viewBox="0 0 150 12" fill="none" preserveAspectRatio="none" style="position: absolute; left: 0; bottom: -12px"><path d="M2 8c12-7 22 5 34-1s22-6 34 0 22 6 34 0 22-6 34-1 8 3 10 2" stroke="#B8A6FF" stroke-width="3" stroke-linecap="round"/></svg></span></h1>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px">
+<span style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 26px; font-weight: 800; color: #CDF56A">13h 01m left</span>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #ABA3B8">day resets at 24:00</span>
+</div>
+</div>
+
+<section style="background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 20px; font-weight: 800; letter-spacing: -0.02em">your 24 hours</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: #ABA3B8">
+<sc-for list="{{legend}}" as="l" hint-placeholder-count="7">
+<span style="display: flex; align-items: center; gap: 6px"><span class="{{l.cls}}" style="{{l.sw}}"></span>{{l.name}}</span>
+</sc-for>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 6px 10px; align-items: center">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #ABA3B8">PLAN</span>
+<div style="display: flex; gap: 3px">
+<sc-for list="{{plan}}" as="c" hint-placeholder-count="24"><div style="{{c.style}}"></div></sc-for>
+</div>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #ABA3B8">ACTUAL</span>
+<div style="display: flex; gap: 3px">
+<sc-for list="{{actual}}" as="c" hint-placeholder-count="24"><div class="{{c.cls}}" style="{{c.style}}"><div style="{{c.inner}}"></div></div></sc-for>
+</div>
+<span></span>
+<div style="display: flex; gap: 3px">
+<sc-for list="{{hours}}" as="h" hint-placeholder-count="24"><span style="{{h.style}}">{{h.label}}</span></sc-for>
+</div>
+</div>
+</section>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr)); gap: 22px; align-items: start">
+
+<div style="display: flex; flex-direction: column; gap: 22px">
+<section style="position: relative; background: #CDF56A; color: #121016; border-radius: 24px; padding: 30px 22px 22px; box-shadow: 6px 6px 0 #B8A6FF; margin-top: 8px; display: flex; flex-direction: column; gap: 12px">
+<span style="position: absolute; top: -13px; left: 18px; background: #121016; color: #CDF56A; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; padding: 6px 11px; border-radius: 8px; transform: rotate(-4deg)">RIGHT NOW</span>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 600">10:30 – 12:00 · college study</span>
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', 'Arial Narrow', sans-serif; font-size: 34px; line-height: 0.95; font-weight: 800; letter-spacing: -0.03em">{{nowTitle}}</h2>
+<div style="display: flex; flex-direction: column; gap: 3px; border: 1.5px dashed #121016; border-radius: 12px; padding: 10px 12px">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.06em">YOUR IF-THEN</span>
+<span style="font-size: 14px; font-weight: 500; line-height: 1.35">if it's 10:30 → notes open, pomodoro on, phone in the other room.</span>
+</div>
+<div style="display: flex; gap: 10px">
+<a href="Desk-Pomodoro.dc.html" style="flex: 1; min-height: 50px; border-radius: 14px; background: #121016; color: #CDF56A; display: flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; font-size: 15px; text-decoration: none"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="#CDF56A"><path d="M7 4.5v15l13-7.5z"/></svg>lock in with a pomodoro</a>
+<button type="button" style="min-height: 50px; padding: 0 16px; border-radius: 14px; background: transparent; border: 2px solid #121016; color: #121016; font-weight: 700; font-size: 14px">what now?</button>
+</div>
+</section>
+
+<section style="background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 20px; padding: 18px 20px 10px; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.02em">{{listTitle}}</h2>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #ABA3B8">{{progress}}</span>
+</div>
+<sc-for list="{{tasks}}" as="m" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 8px; min-height: 60px; border-top: 1px solid #2E2A36">
+<button type="button" aria-label="{{m.aria}}" onClick="{{m.toggle}}" style="width: 44px; height: 44px; flex: none; display: flex; align-items: center; justify-content: center; background: transparent; border: none; padding: 0; margin-left: -7px"><span style="{{m.boxStyle}}"><sc-if value="{{m.done}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#121016" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg></sc-if></span></button>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+<span style="{{m.titleStyle}}">{{m.title}}</span>
+<sc-if value="{{m.frog}}" hint-placeholder-val="{{false}}"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10px; font-weight: 600; letter-spacing: 0.06em; background: #FFA36C; color: #121016; padding: 3px 7px; border-radius: 6px; transform: rotate(-4deg)">THE FROG</span></sc-if>
+</div>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #ABA3B8">{{m.meta}}</span>
+</div>
+<span style="{{m.chip}}">{{m.cat}}</span>
+</div>
+</sc-for>
+</section>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 22px">
+<a href="Desk-Board.dc.html" style="display: flex; flex-direction: column; gap: 12px; background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 20px; padding: 18px 20px; text-decoration: none; color: #F3EFE7">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #ABA3B8">SPRINT 12 · DAY 2 OF 14</span>
+<span style="font-size: 12.5px; font-weight: 700; color: #CDF56A">open board →</span>
+</div>
+<div style="display: flex; align-items: baseline; gap: 8px">
+<span style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 44px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: #CDF56A">8</span>
+<span style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 20px; font-weight: 700; color: #ABA3B8">/ 35 pts done</span>
+</div>
+<div style="display: flex; height: 10px; border-radius: 5px; overflow: hidden; background: #2A2631; gap: 2px">
+<div style="width: 23%; background: #CDF56A"></div><div style="width: 9%; background: #B8A6FF"></div><div style="width: 37%; background: #6E6580"></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 7px; font-size: 13px">
+<div style="display: flex; justify-content: space-between; gap: 10px"><span style="color: #ABA3B8">in progress</span><span style="font-weight: 700; color: #FFA36C">3/3 · WIP full</span></div>
+<div style="display: flex; justify-content: space-between; gap: 10px"><span style="color: #ABA3B8">blocked</span><span style="font-weight: 700">STR-31 onboarding fix</span></div>
+<div style="display: flex; justify-content: space-between; gap: 10px"><span style="color: #ABA3B8">due next</span><span style="font-weight: 700">ERP lab report · 26 nov</span></div>
+</div>
+</a>
+
+<a href="Desk-Track.dc.html" style="display: flex; flex-direction: column; gap: 12px; background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 20px; padding: 18px 20px; text-decoration: none; color: #F3EFE7">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #ABA3B8">THIS WEEK · SPENT / PLANNED</span>
+<span style="font-size: 12.5px; font-weight: 700; color: #CDF56A">track →</span>
+</div>
+<sc-for list="{{week}}" as="w" hint-placeholder-count="4">
+<div style="display: grid; grid-template-columns: 92px minmax(0, 1fr) 62px; gap: 10px; align-items: center">
+<span style="font-size: 13px; font-weight: 600">{{w.name}}</span>
+<div style="height: 10px; border-radius: 4px; background: #2A2631; overflow: hidden"><div style="{{w.bar}}"></div></div>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px; font-weight: 600; text-align: right">{{w.val}}</span>
+</div>
+</sc-for>
+</a>
+
+<section style="background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 20px; padding: 16px 20px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #ABA3B8">LOAD CHECK</span>
+<span style="font-size: 12px; font-weight: 700; color: #CDF56A">{{loadVerdict}}</span>
+</div>
+<span style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 20px; font-weight: 700">{{loadLine}}</span>
+<div style="height: 10px; border-radius: 5px; background: #2A2631; overflow: hidden"><div style="{{loadBar}}"></div></div>
+<span style="font-size: 12.5px; line-height: 1.4; color: #ABA3B8">{{loadNote}}</span>
+</section>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 22px">
+<section style="background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.02em">up next</h2>
+<sc-for list="{{next}}" as="n" hint-placeholder-count="4">
+<div style="display: grid; grid-template-columns: 52px 10px minmax(0, 1fr); gap: 10px; align-items: center">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; color: #ABA3B8">{{n.time}}</span>
+<span style="{{n.dot}}"></span>
+<span style="font-size: 14px; font-weight: 600">{{n.title}}</span>
+</div>
+</sc-for>
+</section>
+
+<section style="background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 20px; padding: 18px 16px 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding: 0 4px">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.02em">rituals</h2>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #ABA3B8">{{ritualHint}}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px">
+<sc-for list="{{habits}}" as="h" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+<button type="button" aria-label="{{h.aria}}" onClick="{{h.toggle}}" style="{{h.btnStyle}}">
+<sc-if value="{{h.isMove}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6.5 7v10M17.5 7v10M3.5 9.5v5M20.5 9.5v5M6.5 12h11"/></svg></sc-if>
+<sc-if value="{{h.isBreathe}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 9h11a3 3 0 1 0-3-3M3 15h14a3 3 0 1 1-3 3M3 12h7"/></svg></sc-if>
+<sc-if value="{{h.isKeys}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M8 5v8M12 5v8M16 5v8M8 13v6M12 13v6M16 13v6"/></svg></sc-if>
+<sc-if value="{{h.isLingo}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H10l-5 4v-4H4z"/><path d="M9.5 13l2.5-5.5 2.5 5.5M10.4 11h3.2"/></svg></sc-if>
+<sc-if value="{{h.isRead}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5zM12 6.5v13"/></svg></sc-if>
+</button>
+<span style="font-size: 12px; font-weight: 600">{{h.label}}</span>
+<span style="{{h.subStyle}}">{{h.sub}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<a href="Desk-Money.dc.html" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 20px; padding: 16px 20px; text-decoration: none; color: #F3EFE7">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; color: #ABA3B8">SPENT TODAY</span>
+<span style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.03em">₹340</span>
+</div>
+<span style="font-size: 13px; font-weight: 700; color: #CDF56A">3 entries →</span>
+</a>
+</div>
+
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1180}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { mvd: false, done: {}, habits: { breathe: true } };
+  }
+  renderVals() {
+    var self = this;
+    var st = this.state;
+    var C = { college: '#B8A6FF', placement: '#86CBFF', explore: '#FF8FB8', startup: '#FFA36C', other: '#8F87A0', sleep: '#2A2631' };
+    var cell = 'flex:1;height:30px;border-radius:5px;box-sizing:border-box;overflow:hidden;';
+    var planMap = ['startup','explore','sleep','sleep','sleep','sleep','sleep','sleep','sleep','other','college','college','placement','other','college','college','placement','startup','startup','other','other','college','college','startup'];
+    var actMap = ['startup','explore','sleep','sleep','sleep','sleep','sleep','sleep','sleep','leak','college'];
+    var plan = planMap.map(function (c, i) {
+      var s = cell + 'background:' + C[c] + ';opacity:' + (c === 'sleep' ? '1' : '0.5');
+      if (i === 10) s = cell + 'background:' + C[c] + ';outline:2px solid #CDF56A;outline-offset:1px';
+      return { style: s };
+    });
+    var actual = [];
+    for (var i = 0; i < 24; i++) {
+      var c = actMap[i];
+      if (!c) { actual.push({ cls: '', style: cell + 'border:1.5px dashed #3B3546;background:transparent', inner: 'display:none' }); continue; }
+      if (c === 'leak') { actual.push({ cls: 'mc-leak', style: cell + 'border:1.5px solid #FFA36C', inner: 'display:none' }); continue; }
+      if (i === 10) { actual.push({ cls: '', style: cell + 'background:#2A2631;outline:2px solid #CDF56A;outline-offset:1px', inner: 'width:98%;height:100%;background:' + C[c] }); continue; }
+      actual.push({ cls: '', style: cell + 'background:' + C[c], inner: 'display:none' });
+    }
+    var hours = [];
+    for (var h = 0; h < 24; h++) {
+      hours.push({ label: (h < 10 ? '0' : '') + h, style: 'flex:1;text-align:center;font-family:JetBrains Mono,monospace;font-size:10px;color:' + (h === 10 ? '#CDF56A;font-weight:600' : '#ABA3B8') });
+    }
+    var legend = [
+      { name: 'college', sw: 'width:10px;height:10px;border-radius:3px;background:' + C.college, cls: '' },
+      { name: 'placement', sw: 'width:10px;height:10px;border-radius:3px;background:' + C.placement, cls: '' },
+      { name: 'exploration', sw: 'width:10px;height:10px;border-radius:3px;background:' + C.explore, cls: '' },
+      { name: 'startup', sw: 'width:10px;height:10px;border-radius:3px;background:' + C.startup, cls: '' },
+      { name: 'other', sw: 'width:10px;height:10px;border-radius:3px;background:' + C.other, cls: '' },
+      { name: 'sleep', sw: 'width:10px;height:10px;border-radius:3px;background:#2A2631;border:1px solid #4A4356', cls: '' },
+      { name: 'leak', sw: 'width:10px;height:10px;border-radius:3px;border:1px solid #FFA36C', cls: 'mc-leak' }
+    ];
+    var full = [
+      { id: 'cn', title: 'CN unit 3 revision', meta: '3 pomodoros · 1h 30m', frog: true, cat: 'college' },
+      { id: 'dp', title: '2 DP problems', meta: '2 pomodoros · 1h', frog: false, cat: 'placement' },
+      { id: 'onb', title: 'ship onboarding fix', meta: 'STR-31 · 2h', frog: false, cat: 'startup' }
+    ];
+    var mvdList = [
+      { id: 'm1', title: '1 pomodoro on the frog', meta: 'just start. that is the whole task.', frog: true, cat: 'college' },
+      { id: 'm2', title: '10 min of piano', meta: 'keeps the streak alive', frog: false, cat: 'other' },
+      { id: 'm3', title: 'lights out by 02:30', meta: 'tomorrow-you says thanks', frog: false, cat: 'other' }
+    ];
+    var list = st.mvd ? mvdList : full;
+    var doneCount = 0;
+    var tasks = list.map(function (t) {
+      var d = !!st.done[t.id];
+      if (d) doneCount++;
+      return {
+        title: t.title, meta: t.meta, frog: t.frog && !d, done: d, cat: t.cat,
+        aria: (d ? 'Mark not done: ' : 'Mark done: ') + t.title,
+        toggle: function () { var nd = Object.assign({}, self.state.done); nd[t.id] = !nd[t.id]; self.setState({ done: nd }); },
+        boxStyle: 'width:30px;height:30px;border-radius:9px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;' + (d ? 'background:#CDF56A;border:2px solid #CDF56A' : 'background:transparent;border:2px solid #7A7188'),
+        titleStyle: 'font-size:16px;font-weight:600;' + (d ? 'color:#ABA3B8;text-decoration:line-through' : 'color:#F3EFE7'),
+        chip: 'font-size:11.5px;font-weight:700;color:#121016;background:' + C[t.cat] + ';padding:4px 9px;border-radius:999px;flex:none'
+      };
+    });
+    var hs = [
+      { id: 'move', label: 'move', streak: 12, color: '#CDF56A', min: '10-min walk' },
+      { id: 'breathe', label: 'breathe', streak: 5, color: '#B8A6FF', min: '3 breaths' },
+      { id: 'keys', label: 'piano', streak: 9, color: '#FF8FB8', min: '1 song' },
+      { id: 'lingo', label: 'language', streak: 0, color: '#86CBFF', missed: true, min: '5 words' },
+      { id: 'read', label: 'read', streak: 3, color: '#FFA36C', min: '1 page' }
+    ];
+    var habits = hs.map(function (h) {
+      var d = !!st.habits[h.id];
+      var btn = 'width:54px;height:54px;border-radius:50%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;padding:0;';
+      if (d) btn += 'background:' + h.color + ';border:2px solid ' + h.color + ';color:#121016';
+      else if (h.missed) btn += 'background:transparent;border:2.5px dashed #FFA36C;color:#F3EFE7';
+      else btn += 'background:transparent;border:2px solid #7A7188;color:#F3EFE7';
+      var sub, subStyle;
+      var mono = 'font-family:JetBrains Mono,monospace;font-size:10.5px;';
+      if (st.mvd) { sub = h.min; subStyle = mono + 'color:#B8A6FF'; }
+      else if (h.missed && !d) { sub = 'save it'; subStyle = mono + 'font-weight:600;color:#FFA36C'; }
+      else if (h.missed && d) { sub = 'saved'; subStyle = mono + 'font-weight:600;color:#CDF56A'; }
+      else { sub = (h.streak + (d ? 1 : 0)) + 'd'; subStyle = mono + 'color:#ABA3B8'; }
+      return {
+        label: h.label, sub: sub, subStyle: subStyle, btnStyle: btn,
+        isMove: h.id === 'move', isBreathe: h.id === 'breathe', isKeys: h.id === 'keys', isLingo: h.id === 'lingo', isRead: h.id === 'read',
+        aria: h.label + (d ? ', done today' : ', not done yet'),
+        toggle: function () { var nh = Object.assign({}, self.state.habits); nh[h.id] = !nh[h.id]; self.setState({ habits: nh }); }
+      };
+    });
+    var week = [['college', 14, 18, 'college'], ['placement', 6, 10, 'placement'], ['exploration', 4, 5, 'explore'], ['startup', 11, 12, 'startup']].map(function (b) {
+      return { name: b[0], val: b[1] + '/' + b[2] + 'h', bar: 'height:100%;border-radius:4px;background:' + C[b[3]] + ';width:' + Math.round(b[1] / b[2] * 100) + '%' };
+    });
+    return {
+      mvd: st.mvd,
+      mvdStr: st.mvd ? 'true' : 'false', fullStr: st.mvd ? 'false' : 'true',
+      setMvd: function () { self.setState({ mvd: true }); },
+      setFull: function () { self.setState({ mvd: false }); },
+      fullBtn: 'min-height:38px;padding:0 14px;border-radius:10px;border:none;font-size:13px;font-weight:700;' + (!st.mvd ? 'background:#F3EFE7;color:#121016' : 'background:transparent;color:#ABA3B8'),
+      mvdBtn: 'min-height:38px;padding:0 14px;border-radius:10px;border:none;font-size:13px;font-weight:700;' + (st.mvd ? 'background:#B8A6FF;color:#121016' : 'background:transparent;color:#ABA3B8'),
+      legend: legend, plan: plan, actual: actual, hours: hours,
+      nowTitle: st.mvd ? 'just 1 pomodoro of CN unit 3' : 'CN unit 3 revision',
+      tasks: tasks, listTitle: st.mvd ? 'minimum viable day' : 'the big 3', progress: doneCount + '/3 done',
+      habits: habits, ritualHint: st.mvd ? 'tiny versions count' : 'never miss twice',
+      week: week,
+      loadVerdict: st.mvd ? 'light day, no pressure' : 'tight but doable',
+      loadLine: st.mvd ? '1h planned · that is enough today' : '4.5h planned × 1.4 = 6.3h of 7h free',
+      loadBar: 'height:100%;border-radius:5px;background:#B8A6FF;width:' + (st.mvd ? '14%' : '90%'),
+      loadNote: st.mvd ? 'everything else moves to tomorrow automatically. nothing is marked overdue.' : 'you usually take 1.4× your estimates. adding more today = spillover.',
+      next: [
+        { time: '12:00', title: 'DP problems × 2', dot: 'width:10px;height:10px;border-radius:50%;background:' + C.placement },
+        { time: '13:00', title: 'lunch', dot: 'width:10px;height:10px;border-radius:50%;background:' + C.other },
+        { time: '14:00', title: 'CN lab', dot: 'width:10px;height:10px;border-radius:50%;background:' + C.college },
+        { time: '17:00', title: 'startup: onboarding fix', dot: 'width:10px;height:10px;border-radius:50%;background:' + C.startup }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

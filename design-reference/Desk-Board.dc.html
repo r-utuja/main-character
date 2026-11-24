@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Board: sprint (desktop)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0B0A0E}
+a{color:#CDF56A}a:hover{color:#E4FF9E}
+button{font-family:inherit;cursor:pointer}
+.mc-dots{background-color:#121016;background-image:radial-gradient(rgba(243,239,231,0.06) 1px, transparent 1.3px);background-size:18px 18px}
+.mc-nav{display:flex;align-items:center;gap:12px;min-height:44px;padding:0 12px;border-radius:12px;color:#ABA3B8;text-decoration:none;font-size:14px;font-weight:600}
+.mc-nav:hover{background:#1D1A23;color:#F3EFE7}
+.mc-nav-on,.mc-nav-on:hover{background:#CDF56A;color:#121016}
+.mc-leak{background-color:#1D1A23;background-image:repeating-linear-gradient(135deg, rgba(255,163,108,0.35) 0 2px, transparent 2px 7px)}
+</style>
+</helmet>
+<div class="mc-dots" style="min-height: 1340px; display: flex; flex-wrap: wrap; font-family: Inter, system-ui, sans-serif; color: #F3EFE7">
+
+<aside style="flex: 1 1 232px; box-sizing: border-box; padding: 24px 16px; background: #100E14; border-right: 1.5px solid #2E2A36; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; align-items: baseline; gap: 8px; padding: 0 12px">
+<span style="font-family: 'Bricolage Grotesque', 'Arial Narrow', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.04em; color: #CDF56A">mc.</span>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #ABA3B8">main character</span>
+</div>
+<nav aria-label="Main" style="display: flex; flex-direction: column; gap: 4px">
+<a class="mc-nav" href="Desk-Today.dc.html"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/></svg>dashboard</a>
+<a class="mc-nav" href="Desk-Pomodoro.dc.html"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 10v3.5l2.5 1.5M9.5 2.5h5M12 2.5V6"/></svg>pomodoro</a>
+<a class="mc-nav mc-nav-on" href="Desk-Board.dc.html" aria-current="page"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="10" rx="1.5"/><rect x="17" y="4" width="4" height="13" rx="1.5"/></svg>board</a>
+<a class="mc-nav" href="Desk-Track.dc.html"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>track</a>
+<a class="mc-nav" href="Desk-Money.dc.html"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18M15.5 14.5h2.5"/></svg>money</a>
+<a class="mc-nav" href="#"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 20V11M11 20V5M17 20v-7M3 20h18"/></svg>review</a>
+<a class="mc-nav" href="#"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>settings</a>
+</nav>
+<div style="margin-top: auto; display: flex; align-items: center; gap: 10px; padding: 0 4px">
+<span style="width: 36px; height: 36px; border-radius: 11px; background: #FFA36C; color: #121016; display: flex; align-items: center; justify-content: center; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: 14px; transform: rotate(-5deg)">RZ</span>
+<span style="font-size: 14px; font-weight: 600">rutuja</span>
+</div>
+</aside>
+
+<main style="flex: 999 1 560px; min-width: 0; box-sizing: border-box; padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 24px">
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<div role="tablist" aria-label="Board views" style="display: flex; background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 14px; padding: 4px">
+<button type="button" role="tab" aria-selected="true" style="min-height: 38px; padding: 0 16px; border-radius: 10px; border: none; background: #F3EFE7; color: #121016; font-size: 13px; font-weight: 700">board</button>
+<button type="button" role="tab" aria-selected="false" style="min-height: 38px; padding: 0 16px; border-radius: 10px; border: none; background: transparent; color: #ABA3B8; font-size: 13px; font-weight: 700">backlog</button>
+<button type="button" role="tab" aria-selected="false" style="min-height: 38px; padding: 0 16px; border-radius: 10px; border: none; background: transparent; color: #ABA3B8; font-size: 13px; font-weight: 700">timeline</button>
+<button type="button" role="tab" aria-selected="false" style="min-height: 38px; padding: 0 16px; border-radius: 10px; border: none; background: transparent; color: #ABA3B8; font-size: 13px; font-weight: 700">eisenhower</button>
+</div>
+<button type="button" style="min-height: 46px; display: flex; align-items: center; gap: 8px; padding: 0 16px; border-radius: 14px; background: #CDF56A; border: none; color: #121016; font-weight: 800; font-size: 14px; box-shadow: 4px 4px 0 #B8A6FF"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#121016" stroke-width="3" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>new ticket</button>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 22px; align-items: stretch">
+
+<section style="display: flex; flex-direction: column; gap: 10px; justify-content: center">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.06em; color: #ABA3B8">23 NOV → 06 DEC · DAY 2 OF 14</span>
+<h1 style="margin: 0; font-family: 'Bricolage Grotesque', 'Arial Narrow', sans-serif; font-size: 64px; line-height: 0.88; font-weight: 800; letter-spacing: -0.045em">sprint <span style="color: #CDF56A">12</span></h1>
+<div style="border: 1.5px dashed #B8A6FF; border-radius: 14px; padding: 10px 14px; display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; color: #B8A6FF">SPRINT GOAL</span>
+<span style="font-size: 14.5px; font-weight: 600; line-height: 1.35">CN units 3–4 exam-ready, ship onboarding v2, 10 DP problems.</span>
+</div>
+</section>
+
+<section style="background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #ABA3B8">STORY POINTS</span>
+<div style="display: flex; align-items: baseline; gap: 8px">
+<span style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 52px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: #CDF56A">8</span>
+<span style="font-family: 'Bricolage Grotesque', sans-serif; font-size: 24px; font-weight: 700; color: #ABA3B8">/ 35 done</span>
+</div>
+<div style="display: flex; height: 12px; border-radius: 6px; overflow: hidden; background: #2A2631; gap: 2px">
+<div style="width: 23%; background: #CDF56A"></div><div style="width: 9%; background: #B8A6FF"></div><div style="width: 37%; background: #6E6580"></div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11.5px; color: #ABA3B8"><span>done 8</span><span>in review 3</span><span>in progress 13</span><span>to do 11</span></div>
+<div style="display: flex; align-items: center; gap: 8px; background: rgba(255,163,108,0.12); border: 1.5px solid #FFA36C; border-radius: 12px; padding: 8px 10px">
+<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFA36C" stroke-width="2.4" stroke-linecap="round"><path d="M12 8v5M12 16.5v.5"/><circle cx="12" cy="12" r="9"/></svg>
+<span style="font-size: 12.5px; font-weight: 600; color: #FFC9A6">35 committed vs 31 avg velocity. move 4 pts out?</span>
+</div>
+</section>
+
+<section style="background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 20px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; color: #ABA3B8">BURNDOWN</span>
+<span style="font-size: 12px; font-weight: 700; color: #CDF56A">ahead of ideal</span>
+</div>
+<svg role="img" aria-label="Burndown: 35 points at start, 27 left on day 2, ideal line reaches zero on day 14" viewBox="0 0 320 140" width="100%" height="150" preserveAspectRatio="none" fill="none">
+<path d="M20 10H310M20 60H310M20 110H310" stroke="#2E2A36" stroke-width="1"/>
+<path d="M20 10L310 110" stroke="#6E6580" stroke-width="2" stroke-dasharray="5 5"/>
+<path d="M20 10L40.7 21.4L61.4 32.9" stroke="#CDF56A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="61.4" cy="32.9" r="5.5" fill="#CDF56A" stroke="#1D1A23" stroke-width="2"/>
+<text x="0" y="14" fill="#ABA3B8" font-size="10" font-family="JetBrains Mono, monospace">35</text>
+<text x="6" y="114" fill="#ABA3B8" font-size="10" font-family="JetBrains Mono, monospace">0</text>
+<text x="20" y="134" fill="#ABA3B8" font-size="10" font-family="JetBrains Mono, monospace">d1</text>
+<text x="288" y="134" fill="#ABA3B8" font-size="10" font-family="JetBrains Mono, monospace">d14</text>
+<text x="70" y="30" fill="#CDF56A" font-size="11" font-weight="600" font-family="JetBrains Mono, monospace">27 left</text>
+</svg>
+</section>
+</div>
+
+<section style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: baseline">
+<h2 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.02em">epics</h2>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #ABA3B8">big projects, broken into tickets</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 14px">
+<sc-for list="{{epics}}" as="e" hint-placeholder-count="4">
+<div style="background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 16px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px">
+<span style="font-size: 14.5px; font-weight: 700">{{e.name}}</span>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 600">{{e.pct}}</span>
+</div>
+<div style="height: 8px; border-radius: 4px; background: #2A2631; overflow: hidden"><div style="{{e.bar}}"></div></div>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #ABA3B8">{{e.meta}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.08em; color: #ABA3B8; margin-right: 4px">FILTER</span>
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="6">
+<button type="button" aria-pressed="{{f.pressed}}" onClick="{{f.pick}}" style="{{f.style}}">{{f.name}}</button>
+</sc-for>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); gap: 16px; align-items: start">
+<sc-for list="{{cols}}" as="col" hint-placeholder-count="4">
+<section style="background: #17151C; border: 1.5px solid #2E2A36; border-radius: 18px; padding: 12px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 4px 4px 2px; gap: 8px">
+<div style="display: flex; align-items: center; gap: 8px">
+<h3 style="margin: 0; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.08em">{{col.name}}</h3>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #ABA3B8">{{col.count}}</span>
+</div>
+<sc-if value="{{col.wip}}" hint-placeholder-val="{{false}}"><span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 10.5px; font-weight: 600; color: #121016; background: #FFA36C; padding: 4px 8px; border-radius: 7px; transform: rotate(2deg)">WIP 3/3 · FULL</span></sc-if>
+</div>
+<sc-for list="{{col.cards}}" as="c" hint-placeholder-count="3">
+<article style="background: #1D1A23; border: 1.5px solid #3B3546; border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<span style="{{c.keyStyle}}">{{c.key}}</span>
+<span role="img" aria-label="{{c.prioLabel}}" style="display: flex">
+<sc-if value="{{c.high}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFA36C" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6M6 19l6-6 6 6"/></svg></sc-if>
+<sc-if value="{{c.med}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#86CBFF" stroke-width="2.8" stroke-linecap="round"><path d="M6 10h12M6 15h12"/></svg></sc-if>
+<sc-if value="{{c.low}}" hint-placeholder-val="{{false}}"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8F87A0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10l6 6 6-6"/></svg></sc-if>
+</span>
+</div>
+<span style="{{c.titleStyle}}">{{c.title}}</span>
+<sc-if value="{{c.blocked}}" hint-placeholder-val="{{false}}"><span class="mc-leak" style="font-size: 12px; font-weight: 700; color: #FFA36C; border: 1.5px solid #FFA36C; border-radius: 8px; padding: 5px 8px">blocked · waiting on design</span></sc-if>
+<sc-if value="{{c.hasSub}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; align-items: center; gap: 8px">
+<div style="flex: 1; height: 6px; border-radius: 3px; background: #2A2631; overflow: hidden"><div style="{{c.subBar}}"></div></div>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #ABA3B8">{{c.sub}}</span>
+</div>
+</sc-if>
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="{{c.chip}}">{{c.cat}}</span>
+<span style="font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px; color: #ABA3B8; flex: 1">{{c.due}}</span>
+<span aria-label="{{c.ptsLabel}}" style="min-width: 24px; height: 24px; border-radius: 8px; background: #2A2631; border: 1.5px solid #4A4356; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11.5px; font-weight: 600">{{c.pts}}</span>
+</div>
+</article>
+</sc-for>
+</section>
+</sc-for>
+</div>
+
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1340}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { filter: 'all' }; }
+  renderVals() {
+    var self = this;
+    var C = { college: '#B8A6FF', placement: '#86CBFF', explore: '#FF8FB8', startup: '#FFA36C', other: '#8F87A0' };
+    var N = { college: 'college', placement: 'placement', explore: 'exploration', startup: 'startup', other: 'other' };
+    var raw = [
+      { name: 'TO DO', cards: [
+        ['COL-21', 'CN unit 4: routing protocols notes', 'college', 3, 'high', '28 nov'],
+        ['PLC-08', 'graphs: 5 medium problems', 'placement', 3, 'med', '01 dec'],
+        ['EXP-04', 'rust book: ownership chapter', 'explore', 2, 'low', '04 dec'],
+        ['STR-33', 'write API docs for onboarding', 'startup', 2, 'med', '03 dec'],
+        ['OTH-05', 'renew bus pass', 'other', 1, 'low', '30 nov']
+      ] },
+      { name: 'IN PROGRESS', wip: true, cards: [
+        ['COL-19', 'CN unit 3 revision', 'college', 3, 'high', 'today', null, [2, 4]],
+        ['STR-31', 'onboarding fix v2', 'startup', 5, 'high', '27 nov', true],
+        ['PLC-07', 'DP: 10 classic problems', 'placement', 5, 'med', '06 dec', null, [6, 10]]
+      ] },
+      { name: 'IN REVIEW', cards: [
+        ['COL-17', 'ERP lab report draft', 'college', 3, 'med', '26 nov']
+      ] },
+      { name: 'DONE', done: true, cards: [
+        ['EXP-03', 'pomodoro timer prototype', 'explore', 3, 'low', 'done 23 nov'],
+        ['STR-29', 'fix login redirect bug', 'startup', 3, 'high', 'done 23 nov'],
+        ['OTH-04', 'laptop service', 'other', 2, 'low', 'done 24 nov']
+      ] }
+    ];
+    var f = this.state.filter;
+    var cols = raw.map(function (col) {
+      var cards = col.cards.filter(function (c) { return f === 'all' || c[2] === f; }).map(function (c) {
+        var done = !!col.done;
+        return {
+          key: c[0], title: c[1], cat: N[c[2]], pts: c[3], due: c[5],
+          ptsLabel: c[3] + ' story points',
+          high: c[4] === 'high', med: c[4] === 'med', low: c[4] === 'low',
+          prioLabel: c[4] === 'high' ? 'High priority' : (c[4] === 'med' ? 'Medium priority' : 'Low priority'),
+          blocked: !!c[6], hasSub: !!c[7],
+          sub: c[7] ? c[7][0] + '/' + c[7][1] : '',
+          subBar: c[7] ? 'height:100%;background:#CDF56A;width:' + Math.round(c[7][0] / c[7][1] * 100) + '%' : '',
+          keyStyle: 'font-family:JetBrains Mono,monospace;font-size:11.5px;font-weight:600;color:' + (done ? '#8F87A0' : '#ABA3B8'),
+          titleStyle: 'font-size:14.5px;font-weight:600;line-height:1.3;' + (done ? 'color:#ABA3B8;text-decoration:line-through' : 'color:#F3EFE7'),
+          chip: 'font-size:11px;font-weight:700;color:#121016;background:' + C[c[2]] + ';padding:3px 8px;border-radius:999px'
+        };
+      });
+      return { name: col.name, wip: !!col.wip, count: cards.length, cards: cards };
+    });
+    var fl = ['all', 'college', 'placement', 'explore', 'startup', 'other'].map(function (k) {
+      var on = f === k;
+      var col = k === 'all' ? '#F3EFE7' : C[k];
+      return {
+        name: k === 'all' ? 'all' : N[k], pressed: on ? 'true' : 'false',
+        pick: function () { self.setState({ filter: k }); },
+        style: 'min-height:36px;padding:0 14px;border-radius:999px;font-size:12.5px;font-weight:700;' + (on ? 'background:' + col + ';color:#121016;border:1.5px solid ' + col : 'background:transparent;color:#D9D3E2;border:1.5px solid #4A4356')
+      };
+    });
+    var epics = [
+      ['CN end-sem prep', 40, 'college', '4 of 10 tickets · due 10 dec'],
+      ['onboarding v2', 55, 'startup', '6 of 11 tickets · due 06 dec'],
+      ['DSA: 150 problems', 38, 'placement', '57 of 150 solved'],
+      ['learn rust', 20, 'explore', '2 of 10 chapters']
+    ].map(function (e) {
+      return { name: e[0], pct: e[1] + '%', meta: e[3], bar: 'height:100%;border-radius:4px;background:' + C[e[2]] + ';width:' + e[1] + '%' };
+    });
+    return { cols: cols, filters: fl, epics: epics };
+  }
+}
+</script>
+</body>
+</html>

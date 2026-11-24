@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body { background: #0B0A0E; color-scheme: dark; }
+  body { margin: 0; font-family: Inter, system-ui, sans-serif; color: #F3EFE7; }
+  button { font-family: inherit; cursor: pointer; }
+  a { color: #CDF56A; }
+  a:hover { color: #E4FF9E; }
+  :focus-visible { outline: 2px solid #CDF56A; outline-offset: 2px; }
+}
+
+@layer components {
+  .mc-dots {
+    background-color: #121016;
+    background-image: radial-gradient(rgba(243, 239, 231, 0.06) 1px, transparent 1.3px);
+    background-size: 18px 18px;
+  }
+  .mc-leak {
+    background-color: #1D1A23;
+    background-image: repeating-linear-gradient(135deg, rgba(255, 163, 108, 0.35) 0 2px, transparent 2px 7px);
+  }
+}
