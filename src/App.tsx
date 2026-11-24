@@ -5,6 +5,7 @@ import { PageShell } from './components/layout/PageShell'
 import { Card } from './components/ui/Card'
 import { ToastHost } from './components/ui/ToastHost'
 import { AuthProvider, useAuth } from './hooks/useAuth'
+import { TimerProvider } from './hooks/useTimer'
 import { firebaseConfigured } from './lib/firebase'
 import Login from './pages/Login'
 
@@ -45,7 +46,11 @@ function AuthGate() {
     )
   }
   if (!user) return <Navigate to="/login" replace />
-  return <PageShell />
+  return (
+    <TimerProvider>
+      <PageShell />
+    </TimerProvider>
+  )
 }
 
 function Page({ children }: { children: ReactNode }) {

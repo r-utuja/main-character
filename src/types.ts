@@ -20,6 +20,8 @@ export interface ActiveTimer {
   remainingMs?: number // while paused
   session: number // 1-4
   taskId?: string
+  taskTitle?: string
+  ticketId?: string
   cat?: WorkCat
 }
 
