@@ -128,3 +128,82 @@ export function loadCheck(big3: Pick<Big3Task, 'estMin' | 'done'>[], realityFact
   const verdict: LoadVerdict = ratio < 0.8 ? 'good' : ratio <= 1 ? 'tight' : 'over'
   return { plannedMin, adjustedHours, freeHours, ratio, verdict }
 }
+
+export interface PlanBlock {
+  hours: number[] // clock hours, in day order
+  cat: SlotCat
+  label: string
+  ifThen?: string
+}
+
+/** Group the plan into runs of consecutive hours (in day order) with the same category and label. */
+export function planBlocks(plan: Record<string, Slot>, order: number[]): PlanBlock[] {
+  const blocks: PlanBlock[] = []
+  for (const h of order) {
+    const s = plan[String(h)]
+    if (!s) continue
+    const last = blocks[blocks.length - 1]
+    const label = s.label ?? ''
+    if (last && last.cat === s.cat && last.label === label && order.indexOf(last.hours[last.hours.length - 1]) === order.indexOf(h) - 1) {
+      last.hours.push(h)
+      if (!last.ifThen && s.ifThen) last.ifThen = s.ifThen
+    } else {
+      blocks.push({ hours: [h], cat: s.cat, label, ifThen: s.ifThen })
+    }
+  }
+  return blocks
+}
+
+/** Free work hours left today: hours remaining in the day that are not planned as sleep. */
+export function freeHoursLeft(plan: Record<string, Slot>, order: number[], nowHour: number, nowMinutes: number): number {
+  const pos = order.indexOf(nowHour)
+  if (pos < 0) return 0
+  let free = (60 - nowMinutes) / 60
+  if (plan[String(nowHour)]?.cat === 'sleep') free = 0
+  for (let i = pos + 1; i < order.length; i++) if (plan[String(order[i])]?.cat !== 'sleep') free++
+  return free
+}
+
+export interface HabitDay {
+  habits?: Record<string, 'full' | 'tiny'>
+  mvd?: boolean
+  mvdDone?: boolean[]
+}
+
+function anyDone(d: HabitDay): boolean {
+  return Object.keys(d.habits ?? {}).length > 0 || (d.mvdDone ?? []).some(Boolean)
+}
+
+/**
+ * Habit streak: consecutive days done. One missed day is forgiven (never miss twice); two misses in a row end it.
+ * Today not being done yet never breaks it. An MVD day with at least one habit or MVD task done protects every streak.
+ * `getDay(offset)` returns the day doc `offset` days before today (0 = today), or undefined if there is none.
+ */
+export function habitStreak(habitId: string, getDay: (offset: number) => HabitDay | undefined, maxDays = 60): number {
+  let streak = 0
+  let misses = 0
+  for (let i = 0; i < maxDays; i++) {
+    const d = getDay(i) ?? {}
+    if (d.habits?.[habitId]) {
+      streak++
+      misses = 0
+    } else if (i === 0) {
+      continue
+    } else if (d.mvd && anyDone(d)) {
+      continue
+    } else if (++misses >= 2) {
+      break
+    }
+  }
+  return streak
+}
+
+/** True when yesterday was a real miss for this habit (so today shows "save it"). */
+export function missedYesterday(habitId: string, getDay: (offset: number) => HabitDay | undefined): boolean {
+  const y = getDay(1)
+  if (!y) return false
+  if (y.habits?.[habitId]) return false
+  if (y.mvd && anyDone(y)) return false
+  // only a miss if there was a streak to save
+  return habitStreak(habitId, (o) => getDay(o + 1)) > 0
+}

@@ -90,3 +90,62 @@ describe('loadCheck', () => {
     expect(loadCheck([task(300, true)], 1.4, 0)).toMatchObject({ plannedMin: 0, ratio: 0, verdict: 'good' })
   })
 })
+
+import { freeHoursLeft, habitStreak, missedYesterday, planBlocks } from './metrics'
+
+describe('planBlocks', () => {
+  const order = Array.from({ length: 24 }, (_, i) => i)
+  it('groups consecutive hours with the same cat and label', () => {
+    const plan = { '9': { cat: 'college' as const, label: 'study' }, '10': { cat: 'college' as const, label: 'study' }, '12': { cat: 'other' as const } }
+    const blocks = planBlocks(plan, order)
+    expect(blocks).toHaveLength(2)
+    expect(blocks[0].hours).toEqual([9, 10])
+  })
+  it('handles an empty plan', () => {
+    expect(planBlocks({}, order)).toEqual([])
+  })
+})
+
+describe('freeHoursLeft', () => {
+  const order = Array.from({ length: 24 }, (_, i) => i)
+  it('counts the rest of the current hour plus later non-sleep hours', () => {
+    expect(freeHoursLeft({}, order, 22, 30)).toBeCloseTo(1.5)
+  })
+  it('skips hours planned as sleep', () => {
+    expect(freeHoursLeft({ '23': { cat: 'sleep' } }, order, 22, 0)).toBeCloseTo(1)
+  })
+  it('is 0 at the end of the day', () => {
+    expect(freeHoursLeft({}, order, 23, 60)).toBe(0)
+  })
+})
+
+describe('habitStreak', () => {
+  const done = { habits: { h: 'full' as const } }
+  const make = (days: Array<typeof done | { mvd?: boolean; habits?: Record<string, 'full' | 'tiny'> } | undefined>) => (o: number) => days[o]
+  it('counts consecutive done days; today not done yet does not break it', () => {
+    expect(habitStreak('h', make([undefined, done, done, done]))).toBe(3)
+    expect(habitStreak('h', make([done, done]))).toBe(2)
+  })
+  it('forgives a single miss but not two', () => {
+    expect(habitStreak('h', make([done, undefined, done, done]))).toBe(3)
+    expect(habitStreak('h', make([done, undefined, undefined, done, done]))).toBe(1)
+  })
+  it('is 0 with no data', () => {
+    expect(habitStreak('h', make([]))).toBe(0)
+  })
+  it('an MVD day with something done protects the streak', () => {
+    const mvd = { mvd: true, habits: { other: 'tiny' as const } }
+    expect(habitStreak('h', make([done, mvd, undefined, done]))).toBe(2)
+  })
+})
+
+describe('missedYesterday', () => {
+  const done = { habits: { h: 'full' as const } }
+  it('is true when a streak existed before a miss yesterday', () => {
+    expect(missedYesterday('h', (o) => (o === 1 ? {} : o >= 2 && o < 5 ? done : undefined))).toBe(true)
+  })
+  it('is false when yesterday was done or there was no streak', () => {
+    expect(missedYesterday('h', (o) => (o === 1 ? done : undefined))).toBe(false)
+    expect(missedYesterday('h', () => undefined)).toBe(false)
+  })
+})
